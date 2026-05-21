@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة استخراج أكواد الكورال</title>
+    <title>بوابة متابعة حضور أعضاء الكورال</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -18,12 +18,12 @@
             padding: 15px;
         }
         .portal-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             color: #333;
-            max-width: 450px;
+            max-width: 600px;
             width: 100%;
         }
         .qr-img {
@@ -33,47 +33,53 @@
             padding: 5px;
             background: #fff;
         }
+        .stats-badge {
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 10px;
+            color: #fff;
+        }
+        .status-indicator {
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .table-custom {
+            font-size: 0.9rem;
+        }
         .info-text {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-style: italic;
             opacity: 0.7;
             margin-top: 25px;
             color: #666;
-            line-height: 1.4;
-        }
-        .result-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
     </style>
 </head>
 <body>
 
 <div class="portal-card text-center">
-    <h3 class="mb-4" style="color: #1e3c72; font-weight: bold;">بوابة استخراج الأكواد</h3>
-    <p class="text-muted small">أدخل اسمك (ثنائياً أو ثلاثياً) أو رقم تليفونك للحصول على كود الحضور والـ QR</p>
+    <h3 class="mb-4" style="color: #1e3c72; font-weight: bold;">بوابة متابعة الحضور والالتزام</h3>
+    <p class="text-muted small">أدخل اسمك أو رقم موبايلك للاطلاع على تقرير حضورك وغيابك والـ QR كود</p>
     
     <div class="mb-3">
         <input type="text" id="searchInput" class="form-control form-control-lg text-center" placeholder="اكتب اسمك أو رقم موبايلك...">
     </div>
-    <button onclick="searchStudent()" class="btn btn-primary btn-lg w-100 mb-4" style="background: #1e3c72; border: none;">بحث واستخراج 🔍</button>
+    <button onclick="searchStudent()" class="btn btn-primary btn-lg w-100 mb-4" style="background: #1e3c72; border: none;">بحث واستخراج البيانات 🔍</button>
 
     <!-- منطقة عرض النتيجة -->
     <div id="resultArea" style="display: none;">
         <div id="cardsContainer"></div>
-        <p class="info-text">
-            * رجاءً الاحتفاظ بهذه الصورة في مكان سهل الوصول إليه على موبايلك، فالكود والـ QR كود هما هويتك الأساسية في الكورال ويجب إظهارهما عند باب القاعة في كل بروفة.
-        </p>
     </div>
 </div>
 
 <script>
     let studentsDatabase = [];
 
-    // جلب ملف JSON المحدث من الريبو الجديد
+    // جلب ملف JSON من الريبو الجديد
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
@@ -86,7 +92,7 @@
             .replace(/[أإآا]/g, 'ا')
             .replace(/[ىي]/g, 'ي')
             .replace(/[ةه]/g, 'ه')
-            .replace(/[\u064B-\u0652]/g, '') // إزالة التشكيل
+            .replace(/[\u064B-\u0652]/g, '')
             .trim()
             .toLowerCase();
     }
@@ -106,7 +112,6 @@
 
         let matches = [];
 
-        // لو المدخل أرقام يبحث برقم الموبايل
         if (/^\d+$/.test(rawInput)) {
             const cleanInput = rawInput.replace(/^0/, '').replace(/^20/, '');
             matches = studentsDatabase.filter(student => {
@@ -114,7 +119,6 @@
                 return cleanPhone.includes(cleanInput);
             });
         } else {
-            // البحث الذكي بالاسم الثنائي أو الثلاثي ودعم الحروف الإنجليزية كابيتال وسمول
             const queryWords = query.split(" ");
             matches = studentsDatabase.filter(student => {
                 const normalizedStudentName = normalizeArabic(student.name);
@@ -123,28 +127,75 @@
         }
 
         if (matches.length > 0) {
-            // توليد كارت لكل كورال مسجل فيه الطالب
             matches.forEach(student => {
-                // استخراج اسم الكورال تلقائياً بناءً على كود الطالب
-                const idPrefix = String(student.id).charAt(0);
-                let choirName = "Unknown Choir";
-                if (idPrefix === "1") choirName = "Hows Erof";
-                else if (idPrefix === "2") choirName = "Saint Antony";
-                else if (idPrefix === "3") choirName = "Saint Pavly";
-                else if (idPrefix === "4") choirName = "Operete";
-                else if (idPrefix === "5") choirName = "Mowhobeen";
-
                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${student.id}`;
+                
+                // تحديد لون حالة الالتزام
+                let statusColor = "#28a745"; // Committed
+                if (student.commitment_status.includes("Dismissed")) statusColor = "#dc3545";
+                else if (student.commitment_status.includes("Danger")) statusColor = "#fd7e14";
+                else if (student.commitment_status.includes("Warning")) statusColor = "#ffc107";
+
+                // توليد جدول الحضور
+                let attendedRows = student.attended_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-success">حاضر</span></td></tr>`).join("");
+                if (!attendedRows) attendedRows = `<tr><td colspan="3" class="text-muted">لم يتم تسجيل حضور أي بروفات بعد</td></tr>`;
+
+                // توليد جدول الغياب والبروفات الفائتة
+                let missedRows = student.missed_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-danger">غائب</span></td></tr>`).join("");
+                if (!missedRows) missedRows = `<tr><td colspan="3" class="text-muted">ممتاز! لا يوجد غيابات بدون عذر</td></tr>`;
+
+                // توليد جدول الأعذار والجزاءات
+                let logsRows = student.history.map(x => `<tr><td>${x.date}</td><td><span class="badge bg-warning text-dark">${x.status}</span></td><td>${x.reason || "بدون سبب"}</td></tr>`).join("");
+                if (!logsRows) logsRows = `<tr><td colspan="3" class="text-muted">سجل الطالب خالي من الأعذار والإنذارات</td></tr>`;
 
                 const cardHtml = `
-                    <div class="result-card text-center">
+                    <div class="card mb-4 text-dark p-3 text-center" style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
                         <h4 style="color: #1e3c72; font-weight: bold;">${student.name}</h4>
-                        <p class="mb-1 text-muted">الكورال: <strong style="color: #2a5298;">${choirName}</strong></p>
+                        <p class="mb-1 text-muted">الكورال: <strong style="color: #2a5298;">${student.choir}</strong></p>
                         <p class="text-muted mb-3">كود الحضور: <strong style="color: #d9534f; font-size: 1.2rem;">${student.id}</strong></p>
+                        
                         <div class="mb-3">
-                            <img src="${qrUrl}" class="qr-img" alt="QR Code">
+                            <span class="status-indicator text-white" style="background-color: ${statusColor};">حالة الالتزام: ${student.commitment_status}</span>
                         </div>
-                        <button onclick="downloadQR('${qrUrl}', '${student.name}_${choirName}_QR.png')" class="btn btn-success btn-sm w-100 mb-2">تحميل صورة الـ QR 📥</button>
+
+                        <!-- إحصائيات سريعة بالأرقام -->
+                        <div class="row g-2 mb-4 text-white">
+                            <div class="col-4"><div class="bg-primary p-2 rounded small">إجمالي البروفات<br><strong>${student.total_sessions}</strong></div></div>
+                            <div class="col-4"><div class="bg-success p-2 rounded small">الحضور<br><strong>${student.attended}</strong></div></div>
+                            <div class="col-4"><div class="bg-danger p-2 rounded small">الغياب الكلي<br><strong>${student.absent}</strong></div></div>
+                        </div>
+                        <div class="row g-2 mb-4 text-white justify-content-center">
+                            <div class="col-5"><div class="bg-warning text-dark p-2 rounded small">غياب بعذر<br><strong>${student.excused_absences}</strong></div></div>
+                            <div class="col-5"><div class="bg-secondary p-2 rounded small">إنذارات<br><strong>${student.warnings}</strong></div></div>
+                        </div>
+
+                        <!-- QR Code Section -->
+                        <div class="mb-4">
+                            <img src="${qrUrl}" class="qr-img mb-2" alt="QR Code">
+                            <button onclick="downloadQR('${qrUrl}', '${student.name}_QR.png')" class="btn btn-outline-primary btn-sm w-100">تحميل صورة الـ QR 📥</button>
+                        </div>
+
+                        <!-- تفاصيل الحضور والغياب والأعذار -->
+                        <div class="accordion text-start" id="accordion-${student.id}">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-${student.id}">📅 سجل البروفات التي حضرها</button></h2>
+                                <div id="collapseOne-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
+                                    <table class="table table-striped table-sm table-custom"><thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead><tbody>${attendedRows}</tbody></table>
+                                </div></div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo-${student.id}">❌ سجل الغيابات بدون عذر</button></h2>
+                                <div id="collapseTwo-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
+                                    <table class="table table-striped table-sm table-custom"><thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead><tbody>${missedRows}</tbody></table>
+                                </div></div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree-${student.id}">📝 سجل الأعذار والتأخير والإنذارات</button></h2>
+                                <div id="collapseThree-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
+                                    <table class="table table-striped table-sm table-custom"><thead><tr><th>التاريخ</th><th>الحدث</th><th>التفاصيل/السبب</th></tr></thead><tbody>${logsRows}</tbody></table>
+                                </div></div>
+                            </div>
+                        </div>
                     </div>
                 `;
                 cardsContainer.innerHTML += cardHtml;
@@ -171,5 +222,7 @@
     }
 </script>
 
+<!-- Bootstrap JS Bundle for Accordion to work -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
