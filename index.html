@@ -8,147 +8,211 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4eefc 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            padding: 15px;
+            color: #f1f5f9;
+            padding: 20px;
         }
         .portal-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 15px 35px rgba(30, 60, 114, 0.08);
-            max-width: 550px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 580px;
             width: 100%;
+            transition: max-width 0.4s ease;
         }
         .input-group-custom {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: right;
         }
         .input-group-custom label {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #475569;
-            margin-bottom: 6px;
+            color: #94a3b8;
+            margin-bottom: 8px;
             display: block;
         }
         .form-control-lg {
-            border-radius: 12px;
-            border: 1.5px solid #dcdfe6;
-            background-color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
+            border-radius: 16px;
+            border: 2px solid #334155;
+            background-color: rgba(15, 23, 42, 0.6);
+            font-size: 1.05rem;
+            color: #f8fafc;
             transition: all 0.3s ease;
         }
         .form-control-lg:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.15);
+            border-color: #3b82f6;
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
         }
         .btn-search {
-            background: linear-gradient(135deg, #4a90e2, #2c5364);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: #fff;
             border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            padding: 14px;
-            font-size: 1.05rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 16px;
+            font-weight: 700;
+            padding: 16px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
         }
         .btn-search:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
             color: #fff;
         }
-        .qr-img {
-            max-width: 160px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 8px;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-        .status-badge {
-            font-size: 1.05rem;
-            font-weight: bold;
-            padding: 8px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .stat-card {
-            background: #f8fafc;
-            border: 1px solid #f1f5f9;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.85rem;
-            color: #475569;
-        }
-        .stat-card strong {
-            font-size: 1.25rem;
-            color: #1e293b;
-        }
-        .info-text {
-            font-size: 0.8rem;
-            font-style: italic;
-            opacity: 0.8;
-            margin-top: 25px;
-            color: #64748b;
-            line-height: 1.5;
-        }
+        /* تصميم الكارت التعريفي المطور */
         .result-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 10px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+        .qr-section {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            display: inline-block;
+            width: 100%;
+        }
+        .qr-img {
+            max-width: 170px;
+            border-radius: 12px;
+            padding: 8px;
+            background: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+        }
+        .member-badge {
+            background: linear-gradient(135deg, #334155, #1e293b);
+            color: #3b82f6;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 6px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        .status-badge {
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 10px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .stat-card strong {
+            font-size: 1.3rem;
+            color: #f8fafc;
+            display: block;
+            margin-top: 4px;
         }
         .accordion-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px !important;
-            margin-bottom: 10px;
+            border: 1px solid #334155;
+            border-radius: 14px !important;
+            margin-bottom: 8px;
             overflow: hidden;
-            background: #fff;
+            background: #1e293b;
         }
         .accordion-button {
-            background: #fff;
-            color: #1e293b;
+            background: #1e293b;
+            color: #cbd5e1;
             font-weight: 600;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
+            padding: 12px 16px;
         }
         .accordion-button:not(.collapsed) {
-            background-color: #f1f5f9;
-            color: #4a90e2;
+            background-color: #334155;
+            color: #3b82f6;
+        }
+        .accordion-body {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 15px;
+        }
+        .table-custom {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+        .table-custom th {
+            color: #94a3b8;
+            border-bottom: 2px solid #334155;
+        }
+        .table-custom td {
+            border-bottom: 1px solid #1e293b;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
 
-<div class="portal-card text-center">
-    <h3 class="mb-1" style="color: #1e293b; font-weight: 800; letter-spacing: -0.5px;">بوابة التحقق واستخراج الأكواد</h3>
+<div class="portal-card text-center" id="mainPortalCard">
+    <h3 class="mb-2" style="color: #f8fafc; font-weight: 800; letter-spacing: -0.5px;">بوابة التحقق واستخراج الأكواد</h3>
     <p class="text-muted small mb-4">يرجى ملء البيانات التالية للتحقق الآمن من هويتك وعرض تقرير حضورك</p>
     
     <div class="input-group-custom">
         <label>الاسم ثلاثي أو ثنائي كما هو مسجل</label>
-        <input type="text" id="nameInput" class="form-control form-control-lg text-center" placeholder="مثال: Chris Samuel">
+        <input type="text" id="nameInput" class="form-control form-control-lg text-center" placeholder="مثال: Ramez Ehab">
     </div>
     
     <div class="input-group-custom">
         <label>آخر 4 أرقام من موبايلك المسجل به</label>
-        <input type="tel" id="phoneInput" maxlength="4" class="form-control form-control-lg text-center" placeholder="مثال: 8843">
+        <input type="tel" id="phoneInput" maxlength="4" class="form-control form-control-lg text-center" placeholder="مثال: 5414">
     </div>
     
     <button onclick="searchStudent()" class="btn btn-search btn-lg w-100 mb-4">استخراج تقرير الحضور والـ QR 🔍</button>
 
-    <!-- منطقة عرض النتيجة التفاعلية -->
+    <!-- منطقة عرض النتيجة التفاعلية المحدثة لتكون شبكة مرنة -->
     <div id="resultArea" style="display: none;">
-        <div id="cardsContainer"></div>
+        <div id="cardsContainer" class="row g-4 justify-content-center"></div>
     </div>
 </div>
 
@@ -173,9 +237,8 @@
             .toLowerCase();
     }
 
-    // دالة تنظيف أرقام الموبايل وقص أي علامات أو رموز والاحتفاظ بالأرقام فقط
     function normalizePhone(phone) {
-        return String(phone).replace(/\D/g, ''); // يحذف كل شيء ليس رقماً (يمسح الزائد والمسافات)
+        return String(phone).replace(/\D/g, ''); 
     }
 
     function searchStudent() {
@@ -183,8 +246,9 @@
         const inputPhoneLast4 = document.getElementById('phoneInput').value.trim();
         const resultArea = document.getElementById('resultArea');
         const cardsContainer = document.getElementById('cardsContainer');
+        const mainPortalCard = document.getElementById('mainPortalCard');
         
-        cardsContainer.innerHTML = ""; // تنظيف النتائج السابقة
+        cardsContainer.innerHTML = ""; 
 
         if (!inputName || !inputPhoneLast4 || inputPhoneLast4.length !== 4) {
             alert("من فضلك أدخل اسمك، مع كتابة آخر 4 أرقام من موبايلك المسجل بشكل صحيح (4 أرقام فقط).");
@@ -195,8 +259,6 @@
         const matches = studentsDatabase.filter(student => {
             const normalizedStudentName = normalizeArabic(student.name);
             const normalizedStudentPhone = normalizePhone(student.phone);
-            
-            // سحب آخر 4 أرقام بدقة لأي رقم موبايل محلي أو دولي
             const registeredLast4 = normalizedStudentPhone.slice(-4);
 
             const isNameMatch = queryWords.every(word => normalizedStudentName.includes(word));
@@ -206,16 +268,24 @@
         });
 
         if (matches.length > 0) {
+            // تمديد عرض الكارت الرئيسي ليصبح عريضاً (1140 بيكسل) عند وجود نتائج متعددة
+            if (matches.length > 1) {
+                mainPortalCard.style.maxWidth = "1140px";
+            } else {
+                mainPortalCard.style.maxWidth = "580px";
+            }
+
             matches.forEach(student => {
                 const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${student.id}`;
                 
-                let badgeStyle = "background-color: #e6f4ea; color: #1e7e34; border: 1.5px solid #218838;";
+                // تحديد شكل وألوان حالة الالتزام بشكل ناعم وعصري
+                let badgeStyle = "background-color: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);";
                 if (student.commitment_status.includes("Dismissed")) {
-                    badgeStyle = "background-color: #fce8e6; color: #a80000; border: 1.5px solid #dc3545;";
+                    badgeStyle = "background-color: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);";
                 } else if (student.commitment_status.includes("Danger")) {
-                    badgeStyle = "background-color: #fff3cd; color: #856404; border: 1.5px solid #ffc107;";
+                    badgeStyle = "background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);";
                 } else if (student.commitment_status.includes("Warning")) {
-                    badgeStyle = "background-color: #fff3cd; color: #856404; border: 1.5px solid #ffc107;";
+                    badgeStyle = "background-color: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3);";
                 }
 
                 let attendedRows = student.attended_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-success-subtle text-success border border-success-subtle">حاضر</span></td></tr>`).join("");
@@ -227,60 +297,96 @@
                 let logsRows = student.history.map(x => `<tr><td>${x.date}</td><td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">${x.status}</span></td><td>${x.reason || "بدون سبب"}</td></tr>`).join("");
                 if (!logsRows) logsRows = `<tr><td colspan="3" class="text-muted text-center py-3">سجل الطالب خالي من الأعذار والإنذارات</td></tr>`;
 
+                // تحديد حجم العمود في الشبكة: 6 من 12 (نصف الشاشة) في الشاشات الكبيرة، و 12 (كامل الشاشة) في الجوال
+                const colSize = matches.length > 1 ? "col-12 col-lg-6" : "col-12";
+
                 const cardHtml = `
-                    <div class="result-card text-center">
-                        <h4 style="color: #1e293b; font-weight: 800;" class="mb-1">${student.name}</h4>
-                        <p class="mb-2 text-muted">الكورال: <strong style="color: #4a90e2;">${student.choir}</strong></p>
-                        <p class="text-muted mb-3">كود الحضور: <strong style="color: #dc3545; font-size: 1.15rem; font-weight: bold;">${student.id}</strong></p>
-                        
-                        <div class="mb-4">
-                            <span class="status-badge" style="${badgeStyle}">حالة الالتزام: ${student.commitment_status}</span>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-4"><div class="stat-card">إجمالي البروفات<br><strong>${student.total_sessions}</strong></div></div>
-                            <div class="col-4"><div class="stat-card" style="background: #edf7ed;">الحضور<br><strong style="color: #1e7e34;">${student.attended}</strong></div></div>
-                            <div class="col-4"><div class="stat-card" style="background: #fdf2f2;">الغياب الكلي<br><strong style="color: #dc3545;">${student.absent}</strong></div></div>
-                        </div>
-                        <div class="row g-2 mb-4 justify-content-center">
-                            <div class="col-5"><div class="stat-card" style="background: #fffdf5;">غياب بعذر<br><strong style="color: #d39e00;">${student.excused_absences}</strong></div></div>
-                            <div class="col-5"><div class="stat-card" style="background: #f8fafc;">إنذارات<br><strong>${student.warnings}</strong></div></div>
-                        </div>
-
-                        <div class="mb-4 bg-light p-3 rounded-4 border">
-                            <img src="${qrUrl}" class="qr-img mb-3" alt="QR Code">
-                            <button onclick="downloadQR('${qrUrl}', '${student.name}_QR.png')" class="btn btn-primary w-100">تحميل صورة الـ QR 📥</button>
-                        </div>
-
-                        <div class="accordion text-start" id="accordion-${student.id}">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-${student.id}">📅 سجل البروفات التي حضرها</button></h2>
-                                <div id="collapseOne-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
-                                    <table class="table table-hover table-sm table-custom"><thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead><tbody>${attendedRows}</tbody></table>
-                                </div></div>
+                    <div class="${colSize}">
+                        <div class="result-card">
+                            
+                            <!-- القسم العلوي: الكود والـ QR أولاً بشكل عريض وأنيق -->
+                            <div class="qr-section">
+                                <div class="member-badge">كود الحضور: ${student.id}</div>
+                                <div class="mb-3">
+                                    <img src="${qrUrl}" class="qr-img" alt="QR Code">
+                                </div>
+                                <button onclick="downloadQR('${qrUrl}', '${student.name}_QR.png')" class="btn btn-outline-primary btn-sm px-4 py-2 w-100" style="border-radius: 12px; font-weight: 600;">تحميل صورة الـ QR 📥</button>
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo-${student.id}">❌ سجل الغيابات بدون عذر</button></h2>
-                                <div id="collapseTwo-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
-                                    <table class="table table-hover table-sm table-custom"><thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead><tbody>${missedRows}</tbody></table>
-                                </div></div>
+
+                            <!-- القسم المتوسط: هوية العضو وحالة التزامه -->
+                            <h4 style="color: #f8fafc; font-weight: 800;" class="mb-1">${student.name}</h4>
+                            <p class="mb-2 text-muted">الكورال: <strong style="color: #3b82f6;">${student.choir}</strong></p>
+                            
+                            <div class="mb-3">
+                                <span class="status-badge" style="${badgeStyle}">حالة الالتزام: ${student.commitment_status}</span>
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree-${student.id}">📝 سجل الأعذار والتأخير والإنذارات</button></h2>
-                                <div id="collapseThree-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}"><div class="accordion-body">
-                                    <table class="table table-hover table-sm table-custom"><thead><tr><th>التاريخ</th><th>الحدث</th><th>التفاصيل/السبب</th></tr></thead><tbody>${logsRows}</tbody></table>
-                                </div></div>
+
+                            <!-- شبكة المؤشرات الرقمية التفاعلية -->
+                            <div class="stat-grid">
+                                <div class="stat-card">البروفات الجارية<strong>${student.total_sessions}</strong></div>
+                                <div class="stat-card" style="background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.15);">الحضور<strong style="color: #10b981;">${student.attended}</strong></div>
+                                <div class="stat-card" style="background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.15);">الغياب الكلي<strong style="color: #ef4444;">${student.absent}</strong></div>
                             </div>
+                            <div class="row g-2 mb-4 justify-content-center">
+                                <div class="col-4"><div class="stat-card" style="background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.15);">غياب بعذر<strong style="color: #f59e0b;">${student.excused_absences}</strong></div></div>
+                                <div class="col-4"><div class="stat-card" style="background: rgba(59, 130, 246, 0.08); border-color: rgba(59, 130, 246, 0.15);">غياب امتحانات<strong style="color: #3b82f6;">${student.exam_absences || 0}</strong></div></div>
+                                <div class="col-4"><div class="stat-card">الإنذارات<strong style="color: #cbd5e1;">${student.warnings}</strong></div></div>
+                            </div>
+
+                            <!-- القسم السفلي: السجلات التفاعلية (أكورديون) -->
+                            <div class="accordion text-start" id="accordion-${student.id}">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-${student.id}">📅 سجل البروفات التي حضرها</button>
+                                    </h2>
+                                    <div id="collapseOne-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}">
+                                        <div class="accordion-body">
+                                            <table class="table table-hover table-sm table-custom text-center">
+                                                <thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead>
+                                                <tbody>${attendedRows}</tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo-${student.id}">❌ سجل الغيابات بدون عذر</button>
+                                    </h2>
+                                    <div id="collapseTwo-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}">
+                                        <div class="accordion-body">
+                                            <table class="table table-hover table-sm table-custom text-center">
+                                                <thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead>
+                                                <tbody>${missedRows}</tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree-${student.id}">📝 سجل الأعذار والتأخير والإنذارات</button>
+                                    </h2>
+                                    <div id="collapseThree-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}">
+                                        <div class="accordion-body">
+                                            <table class="table table-hover table-sm table-custom text-center">
+                                                <thead><tr><th>التاريخ</th><th>الحدث</th><th>التفاصيل/السبب</th></tr></thead>
+                                                <tbody>${logsRows}</tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 `;
                 cardsContainer.innerHTML += cardHtml;
             });
 
-            resultArea.style.display = 'block';
+            resultArea.style.display = 'flex';
         } else {
             alert("عذراً، البيانات غير متطابقة. يرجى التأكد من كتابة الاسم وآخر 4 أرقام من موبايلك بشكل صحيح.");
             resultArea.style.display = 'none';
+            mainPortalCard.style.maxWidth = "580px";
         }
     }
 
