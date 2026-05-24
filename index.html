@@ -1,33 +1,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- الكلمات البرمجية المخصصة لتهيئة الرابط وعرض بطاقة معاينة كبرى على واتساب وفيسبوك -->
     <title>بوابة استخراج أكواد الكورال</title>
-    <meta name="description" content="البوابة الرسمية الموحدة للتحقق واستخراج الـ QR الخاص بك ومتابعة سجل حضورك والتزامك بالكورال.">
-    
+    <meta name="description"
+        content="البوابة الرسمية الموحدة للتحقق واستخراج الـ QR الخاص بك ومتابعة سجل حضورك والتزامك بالكورال.">
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://stantony.tech/ChoirID/">
     <meta property="og:title" content="بوابة استخراج أكواد الكورال">
-    <meta property="og:description" content="البوابة الرسمية الموحدة للتحقق واستخراج الـ QR الخاص بك ومتابعة سجل حضورك والتزامك بالكورال.">
-    
+    <meta property="og:description"
+        content="البوابة الرسمية الموحدة للتحقق واستخراج الـ QR الخاص بك ومتابعة سجل حضورك والتزامك بالكورال.">
+
     <!-- رابط الصورة ومواصفاتها لتظهر بحجم عريض وبأعلى جودة بصرية -->
     <meta property="og:image" content="https://stantony.tech/ChoirID/meta-banner.jpg">
     <meta property="og:image:secure_url" content="https://stantony.tech/ChoirID/meta-banner.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/jpeg">
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts (Cairo Font) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
-        body {
+        .body {
             /* دمج صورة الكنيسة مع تدرج لوني زجاجي ناعم بنسبة شفافية لحماية تباين النصوص والعين */
-            background: linear-gradient(rgba(241, 245, 249, 0.88), rgba(203, 213, 225, 0.88)), 
-                        url('Church Light.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(241, 245, 249, 0.88), rgba(203, 213, 225, 0.88)),
+                url('Church Light.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
@@ -37,6 +39,7 @@
             color: #1e293b;
             padding: 20px;
         }
+
         .portal-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px);
@@ -49,10 +52,12 @@
             width: 100%;
             transition: max-width 0.4s ease;
         }
+
         .input-group-custom {
             margin-bottom: 25px;
             text-align: right;
         }
+
         .input-group-custom label {
             font-size: 0.95rem;
             font-weight: 700;
@@ -60,13 +65,15 @@
             margin-bottom: 8px;
             display: block;
         }
-        
+
         /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين والكتابة يسار) */
         #nameInput {
             text-align: center;
             direction: rtl;
         }
-        #nameInput:focus, #nameInput:not(:placeholder-shown) {
+
+        #nameInput:focus,
+        #nameInput:not(:placeholder-shown) {
             direction: ltr !important;
             text-align: center !important;
         }
@@ -79,12 +86,14 @@
             color: #0f172a;
             transition: all 0.3s ease;
         }
+
         .form-control-lg:focus {
             border-color: #2563eb;
             background-color: #ffffff;
             color: #000;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
+
         .btn-search {
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: #fff;
@@ -96,11 +105,13 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
         }
+
         .btn-search:hover {
             transform: translateY(-2px);
             box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
             color: #fff;
         }
+
         /* تصميم كروت الأعضاء المطور بالوضع المضيء */
         .result-card {
             background: #ffffff;
@@ -114,6 +125,7 @@
             overflow: hidden;
             height: 100%;
         }
+
         .result-card::before {
             content: '';
             position: absolute;
@@ -123,6 +135,7 @@
             height: 6px;
             background: linear-gradient(90deg, #2563eb, #8b5cf6);
         }
+
         .qr-section {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -132,15 +145,17 @@
             display: inline-block;
             width: 100%;
         }
+
         .qr-img {
             max-width: 170px;
             border-radius: 12px;
             padding: 8px;
             background: #fff;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
             margin-bottom: 12px;
         }
+
         .member-badge {
             background: #f1f5f9;
             color: #1e293b;
@@ -152,6 +167,7 @@
             display: inline-block;
             margin-bottom: 15px;
         }
+
         .status-badge {
             font-size: 0.95rem;
             font-weight: 700;
@@ -160,12 +176,14 @@
             display: inline-block;
             margin-bottom: 20px;
         }
+
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-bottom: 15px;
         }
+
         .stat-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -175,15 +193,18 @@
             color: #475569;
             transition: transform 0.2s;
         }
+
         .stat-card:hover {
             transform: translateY(-2px);
         }
+
         .stat-card strong {
             font-size: 1.3rem;
             color: #0f172a;
             display: block;
             margin-top: 4px;
         }
+
         .accordion-item {
             border: 1px solid #e2e8f0;
             border-radius: 14px !important;
@@ -191,6 +212,7 @@
             overflow: hidden;
             background: #ffffff;
         }
+
         .accordion-button {
             background: #ffffff;
             color: #475569;
@@ -199,29 +221,35 @@
             padding: 12px 16px;
             font-family: 'Cairo', sans-serif;
         }
+
         .accordion-button:not(.collapsed) {
             background-color: #f8fafc;
             color: #2563eb;
         }
+
         .accordion-body {
             background: #f8fafc;
             color: #334155;
             padding: 15px;
         }
+
         .table-custom {
             color: #334155;
             font-size: 0.85rem;
             margin-bottom: 0;
         }
+
         .table-custom th {
             color: #475569;
             border-bottom: 2px solid #cbd5e1;
             background-color: #f1f5f9;
         }
+
         .table-custom td {
             border-bottom: 1px solid #e2e8f0;
             vertical-align: middle;
         }
+
         .btn-download {
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: #fff;
@@ -233,11 +261,13 @@
             box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
             transition: all 0.2s ease;
         }
+
         .btn-download:hover {
             transform: translateY(-1px);
             box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
             color: #fff;
         }
+
         /* الشريط السفلي الصغير المحسن */
         .footer-text {
             font-size: 0.72rem;
@@ -248,123 +278,130 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="portal-card text-center" id="mainPortalCard">
-    <h3 class="mb-2" style="color: #0f172a; font-weight: 800; letter-spacing: -0.5px;">بوابة التحقق واستخراج الأكواد</h3>
-    <p class="text-muted small mb-4">يرجى ملء البيانات التالية للتحقق الآمن من هويتك وعرض تقرير حضورك</p>
-    
-    <div class="input-group-custom">
-        <label>الاسم ثلاثي أو ثنائي كما هو مسجل</label>
-        <input type="text" id="nameInput" class="form-control form-control-lg" placeholder="مثال: Chris Samuel">
+    <div class="body">
+        <div class="portal-card text-center" id="mainPortalCard">
+            <h3 class="mb-2" style="color: #0f172a; font-weight: 800; letter-spacing: -0.5px;">بوابة التحقق واستخراج
+                الأكواد</h3>
+            <p class="text-muted small mb-4">يرجى ملء البيانات التالية للتحقق الآمن من هويتك وعرض تقرير حضورك</p>
+
+            <div class="input-group-custom">
+                <label>الاسم ثلاثي أو ثنائي كما هو مسجل</label>
+                <input type="text" id="nameInput" class="form-control form-control-lg" placeholder="مثال: Chris Samuel">
+            </div>
+
+            <div class="input-group-custom">
+                <label>آخر 4 أرقام من موبايلك المسجل به</label>
+                <input type="tel" id="phoneInput" maxlength="4" class="form-control form-control-lg text-center"
+                    placeholder="مثال: 8843">
+            </div>
+
+            <button onclick="searchStudent()" class="btn btn-search btn-lg w-100 mb-4">استخراج تقرير الحضور والـ QR
+                🔍</button>
+
+            <!-- منطقة عرض النتيجة التفاعلية المحدثة لتكون شبكة مرنة متراصة بالمنتصف -->
+            <div id="resultArea" style="display: none; width: 100%;">
+                <div id="cardsContainer" class="row g-4 justify-content-center w-100 m-0"></div>
+            </div>
+
+            <!-- الجزء الخاص بحقوق الملكية الصغير في الأسفل -->
+            <div class="footer-text">
+                Developed by Chris Samuel 2026 © All Rights Reserved
+            </div>
+        </div>
+
     </div>
-    
-    <div class="input-group-custom">
-        <label>آخر 4 أرقام من موبايلك المسجل به</label>
-        <input type="tel" id="phoneInput" maxlength="4" class="form-control form-control-lg text-center" placeholder="مثال: 8843">
-    </div>
-    
-    <button onclick="searchStudent()" class="btn btn-search btn-lg w-100 mb-4">استخراج تقرير الحضور والـ QR 🔍</button>
 
-    <!-- منطقة عرض النتيجة التفاعلية المحدثة لتكون شبكة مرنة متراصة بالمنتصف -->
-    <div id="resultArea" style="display: none; width: 100%;">
-        <div id="cardsContainer" class="row g-4 justify-content-center w-100 m-0"></div>
-    </div>
+    <script>
+        let studentsDatabase = [];
 
-    <!-- الجزء الخاص بحقوق الملكية الصغير في الأسفل -->
-    <div class="footer-text">
-        Developed by Chris Samuel 2026 © All Rights Reserved
-    </div>
-</div>
+        // جلب ملف JSON المحدث تلقائياً من جيت هاب
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                studentsDatabase = data;
+            })
+            .catch(err => console.error("Error loading student database:", err));
 
-<script>
-    let studentsDatabase = [];
-
-    // جلب ملف JSON المحدث تلقائياً من جيت هاب
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            studentsDatabase = data;
-        })
-        .catch(err => console.error("Error loading student database:", err));
-
-    function normalizeArabic(text) {
-        return text
-            .replace(/[أإآا]/g, 'ا')
-            .replace(/[ىي]/g, 'ي')
-            .replace(/[ةه]/g, 'ه')
-            .replace(/[\u064B-\u0652]/g, '')
-            .trim()
-            .toLowerCase();
-    }
-
-    function normalizePhone(phone) {
-        return String(phone).replace(/\D/g, ''); 
-    }
-
-    function searchStudent() {
-        const inputName = normalizeArabic(document.getElementById('nameInput').value.trim());
-        const inputPhoneLast4 = document.getElementById('phoneInput').value.trim();
-        const resultArea = document.getElementById('resultArea');
-        const cardsContainer = document.getElementById('cardsContainer');
-        const mainPortalCard = document.getElementById('mainPortalCard');
-        
-        cardsContainer.innerHTML = ""; 
-
-        if (!inputName || !inputPhoneLast4 || inputPhoneLast4.length !== 4) {
-            alert("من فضلك أدخل اسمك، مع كتابة آخر 4 أرقام من موبايلك المسجل بشكل صحيح (4 أرقام فقط).");
-            return;
+        function normalizeArabic(text) {
+            return text
+                .replace(/[أإآا]/g, 'ا')
+                .replace(/[ىي]/g, 'ي')
+                .replace(/[ةه]/g, 'ه')
+                .replace(/[\u064B-\u0652]/g, '')
+                .trim()
+                .toLowerCase();
         }
 
-        const queryWords = inputName.split(" ");
-        let matches = studentsDatabase.filter(student => {
-            const normalizedStudentName = normalizeArabic(student.name);
-            const normalizedStudentPhone = normalizePhone(student.phone);
-            const registeredLast4 = normalizedStudentPhone.slice(-4);
+        function normalizePhone(phone) {
+            return String(phone).replace(/\D/g, '');
+        }
 
-            const isNameMatch = queryWords.every(word => normalizedStudentName.includes(word));
-            const isPhoneMatch = (registeredLast4 === inputPhoneLast4);
+        function searchStudent() {
+            const inputName = normalizeArabic(document.getElementById('nameInput').value.trim());
+            const inputPhoneLast4 = document.getElementById('phoneInput').value.trim();
+            const resultArea = document.getElementById('resultArea');
+            const cardsContainer = document.getElementById('cardsContainer');
+            const mainPortalCard = document.getElementById('mainPortalCard');
 
-            return isNameMatch && isPhoneMatch;
-        });
+            cardsContainer.innerHTML = "";
 
-        if (matches.length > 0) {
-            // ترتيب الكروت تصاعدياً بناءً على كود العازف لضمان تناسق الترتيب
-            matches.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-
-            // تمديد عرض الكارت الرئيسي ليصبح عريضاً عند وجود نتائج متعددة لتظهر متجاورة بالمنتصف
-            if (matches.length > 1) {
-                mainPortalCard.style.maxWidth = "1140px";
-            } else {
-                mainPortalCard.style.maxWidth = "580px";
+            if (!inputName || !inputPhoneLast4 || inputPhoneLast4.length !== 4) {
+                alert("من فضلك أدخل اسمك، مع كتابة آخر 4 أرقام من موبايلك المسجل بشكل صحيح (4 أرقام فقط).");
+                return;
             }
 
-            matches.forEach(student => {
-                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${student.id}`;
-                
-                // تحديد شكل وألوان حالة الالتزام بشكل ناعم وعصري في الوضع المضيء
-                let badgeStyle = "background-color: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0;";
-                if (student.commitment_status.includes("Dismissed")) {
-                    badgeStyle = "background-color: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5;";
-                } else if (student.commitment_status.includes("Danger")) {
-                    badgeStyle = "background-color: #fff7ed; color: #ea580c; border: 1.5px solid #ffedd5;";
-                } else if (student.commitment_status.includes("Warning")) {
-                    badgeStyle = "background-color: #fef9c3; color: #ca8a04; border: 1.5px solid #fef08a;";
+            const queryWords = inputName.split(" ");
+            let matches = studentsDatabase.filter(student => {
+                const normalizedStudentName = normalizeArabic(student.name);
+                const normalizedStudentPhone = normalizePhone(student.phone);
+                const registeredLast4 = normalizedStudentPhone.slice(-4);
+
+                const isNameMatch = queryWords.every(word => normalizedStudentName.includes(word));
+                const isPhoneMatch = (registeredLast4 === inputPhoneLast4);
+
+                return isNameMatch && isPhoneMatch;
+            });
+
+            if (matches.length > 0) {
+                // ترتيب الكروت تصاعدياً بناءً على كود العازف لضمان تناسق الترتيب
+                matches.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+                // تمديد عرض الكارت الرئيسي ليصبح عريضاً عند وجود نتائج متعددة لتظهر متجاورة بالمنتصف
+                if (matches.length > 1) {
+                    mainPortalCard.style.maxWidth = "1140px";
+                } else {
+                    mainPortalCard.style.maxWidth = "580px";
                 }
 
-                let attendedRows = student.attended_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-success-subtle text-success border border-success-subtle">حاضر</span></td></tr>`).join("");
-                if (!attendedRows) attendedRows = `<tr><td colspan="3" class="text-muted text-center py-3">لم يتم تسجيل حضور أي بروفات بعد</td></tr>`;
+                matches.forEach(student => {
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${student.id}`;
 
-                let missedRows = student.missed_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">غائب</span></td></tr>`).join("");
-                if (!missedRows) missedRows = `<tr><td colspan="3" class="text-muted text-center py-3">ممتاز! لا يوجد غيابات بدون عذر</td></tr>`;
+                    // تحديد شكل وألوان حالة الالتزام بشكل ناعم وعصري في الوضع المضيء
+                    let badgeStyle = "background-color: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0;";
+                    if (student.commitment_status.includes("Dismissed")) {
+                        badgeStyle = "background-color: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5;";
+                    } else if (student.commitment_status.includes("Danger")) {
+                        badgeStyle = "background-color: #fff7ed; color: #ea580c; border: 1.5px solid #ffedd5;";
+                    } else if (student.commitment_status.includes("Warning")) {
+                        badgeStyle = "background-color: #fef9c3; color: #ca8a04; border: 1.5px solid #fef08a;";
+                    }
 
-                let logsRows = student.history.map(x => `<tr><td>${x.date}</td><td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">${x.status}</span></td><td>${x.reason || "بدون سبب"}</td></tr>`).join("");
-                if (!logsRows) logsRows = `<tr><td colspan="3" class="text-muted text-center py-3">سجل الطالب خالي من الأعذار والإنذارات</td></tr>`;
+                    let attendedRows = student.attended_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-success-subtle text-success border border-success-subtle">حاضر</span></td></tr>`).join("");
+                    if (!attendedRows) attendedRows = `<tr><td colspan="3" class="text-muted text-center py-3">لم يتم تسجيل حضور أي بروفات بعد</td></tr>`;
 
-                // الحجم في الجوال يكون بكامل الشاشة، وفي الشاشات الكبيرة ينقسم لنصفين متجاورين متوسيطين
-                const colSize = matches.length > 1 ? "col-12 col-md-6" : "col-12";
+                    let missedRows = student.missed_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">غائب</span></td></tr>`).join("");
+                    if (!missedRows) missedRows = `<tr><td colspan="3" class="text-muted text-center py-3">ممتاز! لا يوجد غيابات بدون عذر</td></tr>`;
 
-                const cardHtml = `
+                    let logsRows = student.history.map(x => `<tr><td>${x.date}</td><td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">${x.status}</span></td><td>${x.reason || "بدون سبب"}</td></tr>`).join("");
+                    if (!logsRows) logsRows = `<tr><td colspan="3" class="text-muted text-center py-3">سجل الطالب خالي من الأعذار والإنذارات</td></tr>`;
+
+                    // الحجم في الجوال يكون بكامل الشاشة، وفي الشاشات الكبيرة ينقسم لنصفين متجاورين متوسيطين
+                    const colSize = matches.length > 1 ? "col-12 col-md-6" : "col-12";
+
+                    const cardHtml = `
                     <div class="${colSize}">
                         <div class="result-card">
                             
@@ -448,32 +485,33 @@
                         </div>
                     </div>
                 `;
-                cardsContainer.innerHTML += cardHtml;
-            });
+                    cardsContainer.innerHTML += cardHtml;
+                });
 
-            resultArea.style.display = 'flex';
-        } else {
-            alert("عذراً، البيانات غير متطابقة. يرجى التأكد من كتابة الاسم وآخر 4 أرقام من موبايلك بشكل صحيح.");
-            resultArea.style.display = 'none';
-            mainPortalCard.style.maxWidth = "580px";
+                resultArea.style.display = 'flex';
+            } else {
+                alert("عذراً، البيانات غير متطابقة. يرجى التأكد من كتابة الاسم وآخر 4 أرقام من موبايلك بشكل صحيح.");
+                resultArea.style.display = 'none';
+                mainPortalCard.style.maxWidth = "580px";
+            }
         }
-    }
 
-    async function downloadQR(url, filename) {
-        try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-        } catch (error) {
-            console.error("Download failed:", error);
+        async function downloadQR(url, filename) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            } catch (error) {
+                console.error("Download failed:", error);
+            }
         }
-    }
-</script>
+    </script>
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
