@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,16 +68,16 @@
             display: block;
         }
 
-        /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين والكتابة يسار) */
+        /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين ومحاذي للوسط، والكتابة يسار) */
         #nameInput {
-            text-align: center;
+            text-align: right;
             direction: rtl;
         }
 
         #nameInput:focus,
         #nameInput:not(:placeholder-shown) {
             direction: ltr !important;
-            text-align: center !important;
+            text-align: left !important;
         }
 
         .form-control-lg {
@@ -317,8 +319,8 @@
     <script>
         let studentsDatabase = [];
 
-        // جلب ملف JSON المحدث تلقائياً من جيت هاب
-        fetch('data.json')
+        // جلب ملف JSON المحدث تلقائياً مع ميزة كسر التخزين المؤقت لضمان جلب أحدث البيانات فوراً
+        fetch('data.json?v=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 studentsDatabase = data;
