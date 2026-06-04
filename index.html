@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,16 +68,16 @@
             display: block;
         }
 
-        /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين والكتابة يسار) */
+        /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين ومحاذي للوسط، والكتابة يسار) */
         #nameInput {
-            text-align: center;
+            text-align: right;
             direction: rtl;
         }
 
         #nameInput:focus,
         #nameInput:not(:placeholder-shown) {
             direction: ltr !important;
-            text-align: center !important;
+            text-align: left !important;
         }
 
         .form-control-lg {
@@ -317,8 +319,8 @@
     <script>
         let studentsDatabase = [];
 
-        // جلب ملف JSON المحدث تلقائياً من جيت هاب
-        fetch('data.json')
+        // استخدام ميزة التوقيت لمنع البراوزر من تخزين الكاش ديناميكياً وعرض أحدث البيانات
+        fetch('data.json?v=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 studentsDatabase = data;
@@ -336,6 +338,7 @@
         }
 
         function normalizePhone(phone) {
+            // بما أن الملف لا يحتوي إلا على آخر 4 أرقام فقط للحماية، سيتطابق المدخل مع المحفوظ بالكامل
             return String(phone).replace(/\D/g, '');
         }
 
@@ -357,19 +360,17 @@
             let matches = studentsDatabase.filter(student => {
                 const normalizedStudentName = normalizeArabic(student.name);
                 const normalizedStudentPhone = normalizePhone(student.phone);
-                const registeredLast4 = normalizedStudentPhone.slice(-4);
-
+                
+                // مطابقة مباشرة لآخر 4 أرقام المؤمنة مسبقاً في السيرفر
                 const isNameMatch = queryWords.every(word => normalizedStudentName.includes(word));
-                const isPhoneMatch = (registeredLast4 === inputPhoneLast4);
+                const isPhoneMatch = (normalizedStudentPhone === inputPhoneLast4);
 
                 return isNameMatch && isPhoneMatch;
             });
 
             if (matches.length > 0) {
-                // ترتيب الكروت تصاعدياً بناءً على كود العازف لضمان تناسق الترتيب
                 matches.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
-                // تمديد عرض الكارت الرئيسي ليصبح عريضاً عند وجود نتائج متعددة لتظهر متجاورة بالمنتصف
                 if (matches.length > 1) {
                     mainPortalCard.style.maxWidth = "1140px";
                 } else {
@@ -379,7 +380,6 @@
                 matches.forEach(student => {
                     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${student.id}`;
 
-                    // تحديد شكل وألوان حالة الالتزام بشكل ناعم وعصري في الوضع المضيء
                     let badgeStyle = "background-color: #f0fdf4; color: #16a34a; border: 1.5px solid #bbf7d0;";
                     if (student.commitment_status.includes("Dismissed")) {
                         badgeStyle = "background-color: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5;";
@@ -395,10 +395,12 @@
                     let missedRows = student.missed_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">غائب</span></td></tr>`).join("");
                     if (!missedRows) missedRows = `<tr><td colspan="3" class="text-muted text-center py-3">ممتاز! لا يوجد غيابات بدون عذر</td></tr>`;
 
+                    let travelRows = student.travel_study_history.map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td><span class="badge bg-info-subtle text-info border border-info-subtle">سفر/دراسة</span></td></tr>`).join("");
+                    if (!travelRows) travelRows = `<tr><td colspan="3" class="text-muted text-center py-3">لا يوجد غيابات مسجلة بعذر سفر أو دراسة</td></tr>`;
+
                     let logsRows = student.history.map(x => `<tr><td>${x.date}</td><td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">${x.status}</span></td><td>${x.reason || "بدون سبب"}</td></tr>`).join("");
                     if (!logsRows) logsRows = `<tr><td colspan="3" class="text-muted text-center py-3">سجل الطالب خالي من الأعذار والإنذارات</td></tr>`;
 
-                    // الحجم في الجوال يكون بكامل الشاشة، وفي الشاشات الكبيرة ينقسم لنصفين متجاورين متوسيطين
                     const colSize = matches.length > 1 ? "col-12 col-md-6" : "col-12";
 
                     const cardHtml = `
@@ -463,6 +465,19 @@
                                             <table class="table table-hover table-sm table-custom text-center">
                                                 <thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead>
                                                 <tbody>${missedRows}</tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour-${student.id}">✈️ سجل غيابات الدراسة أو السفر</button>
+                                    </h2>
+                                    <div id="collapseFour-${student.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-${student.id}">
+                                        <div class="accordion-body">
+                                            <table class="table table-hover table-sm table-custom text-center">
+                                                <thead><tr><th>التاريخ</th><th>اسم البروفة</th><th>الحالة</th></tr></thead>
+                                                <tbody>${travelRows}</tbody>
                                             </table>
                                         </div>
                                     </div>
