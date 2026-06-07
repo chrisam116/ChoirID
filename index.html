@@ -68,9 +68,9 @@
             display: block;
         }
 
-        /* خدعة ذكية لضبط اتجاه مدخلات الاسم (الplaceholder يمين ومحاذي للوسط، والكتابة يسار) */
+        /* ضبط اتجاه مدخلات الاسم (الplaceholder يمين ومحاذي للوسط، والكتابة يسار) */
         #nameInput {
-            text-align: right;
+            text-align: middle;
             direction: rtl;
         }
 
@@ -338,7 +338,6 @@
         }
 
         function normalizePhone(phone) {
-            // بما أن الملف لا يحتوي إلا على آخر 4 أرقام فقط للحماية، سيتطابق المدخل مع المحفوظ بالكامل
             return String(phone).replace(/\D/g, '');
         }
 
@@ -361,7 +360,6 @@
                 const normalizedStudentName = normalizeArabic(student.name);
                 const normalizedStudentPhone = normalizePhone(student.phone);
                 
-                // مطابقة مباشرة لآخر 4 أرقام المؤمنة مسبقاً في السيرفر
                 const isNameMatch = queryWords.every(word => normalizedStudentName.includes(word));
                 const isPhoneMatch = (normalizedStudentPhone === inputPhoneLast4);
 
